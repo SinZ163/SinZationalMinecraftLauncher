@@ -40,9 +40,13 @@ namespace SinZational_Minecraft_Launcher {
 
 
                     //TODO: Download stuff here
+
                     //DownloadLWJGL lwjgl = new DownloadLWJGL(this, path);
+                    //DownloadMinecraft minecraft = new DownloadMinecraft(Path.Combine(path, "dl"+Path.DirectorySeperatorChar));
 
                     //TODO: Install stuff here
+                    SetTask("Installing Modpack");
+                    InstallJar jar = new InstallJar(Path.Combine(path, "dl" + Path.DirectorySeparatorChar));
                 }
                 SetTask("Starting Minecraft!");
                 Environment.SetEnvironmentVariable("APPDATA", rootPath);
@@ -73,6 +77,14 @@ namespace SinZational_Minecraft_Launcher {
         public void SetTask(String taskName) {
             //TODO: Show progress task, somehow
             progressLabel.Text = taskName;
+        }
+
+        private void sinZationalMinecraftToolStripMenuItem_Click(object sender, EventArgs e) {
+            webBrowser.Url = new Uri("http://SinZationalMinecraft.mca.d3s.co");
+        }
+
+        private void mCUpdateToolStripMenuItem_Click(object sender, EventArgs e) {
+            webBrowser.Url = new Uri("http://mcupdate.tumblr.com");
         }
     }
 }

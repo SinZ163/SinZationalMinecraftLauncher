@@ -34,6 +34,10 @@
             this.rememberBox = new System.Windows.Forms.CheckBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.progressLabel = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.sinZationalMinecraftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mCUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // userText
@@ -83,18 +87,18 @@
             // 
             // webBrowser
             // 
-            this.webBrowser.Location = new System.Drawing.Point(12, 69);
+            this.webBrowser.Location = new System.Drawing.Point(12, 27);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.ScriptErrorsSuppressed = true;
-            this.webBrowser.Size = new System.Drawing.Size(760, 433);
+            this.webBrowser.Size = new System.Drawing.Size(760, 475);
             this.webBrowser.TabIndex = 5;
             this.webBrowser.Url = new System.Uri("http://sinzationalminecraft.mca.d3s.co", System.UriKind.Absolute);
             // 
             // consoleBox
             // 
             this.consoleBox.AutoSize = true;
-            this.consoleBox.Location = new System.Drawing.Point(651, 12);
+            this.consoleBox.Location = new System.Drawing.Point(409, 507);
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.Size = new System.Drawing.Size(70, 17);
             this.consoleBox.TabIndex = 6;
@@ -104,7 +108,7 @@
             // updateBox
             // 
             this.updateBox.AutoSize = true;
-            this.updateBox.Location = new System.Drawing.Point(651, 35);
+            this.updateBox.Location = new System.Drawing.Point(302, 531);
             this.updateBox.Name = "updateBox";
             this.updateBox.Size = new System.Drawing.Size(121, 17);
             this.updateBox.TabIndex = 7;
@@ -114,7 +118,7 @@
             // rememberBox
             // 
             this.rememberBox.AutoSize = true;
-            this.rememberBox.Location = new System.Drawing.Point(544, 12);
+            this.rememberBox.Location = new System.Drawing.Point(302, 508);
             this.rememberBox.Name = "rememberBox";
             this.rememberBox.Size = new System.Drawing.Size(101, 17);
             this.rememberBox.TabIndex = 8;
@@ -137,6 +141,31 @@
             this.progressLabel.TabIndex = 10;
             this.progressLabel.Text = "N/A";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sinZationalMinecraftToolStripMenuItem,
+            this.mCUpdateToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // sinZationalMinecraftToolStripMenuItem
+            // 
+            this.sinZationalMinecraftToolStripMenuItem.Name = "sinZationalMinecraftToolStripMenuItem";
+            this.sinZationalMinecraftToolStripMenuItem.Size = new System.Drawing.Size(129, 20);
+            this.sinZationalMinecraftToolStripMenuItem.Text = "SinZationalMinecraft";
+            this.sinZationalMinecraftToolStripMenuItem.Click += new System.EventHandler(this.sinZationalMinecraftToolStripMenuItem_Click);
+            // 
+            // mCUpdateToolStripMenuItem
+            // 
+            this.mCUpdateToolStripMenuItem.Name = "mCUpdateToolStripMenuItem";
+            this.mCUpdateToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.mCUpdateToolStripMenuItem.Text = "MCUpdate";
+            this.mCUpdateToolStripMenuItem.Click += new System.EventHandler(this.mCUpdateToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,9 +182,13 @@
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.passText);
             this.Controls.Add(this.userText);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "SinZational Minecraft Launcher";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,6 +207,9 @@
         public System.Windows.Forms.Label progressLabel;
         protected internal System.Windows.Forms.TextBox userText;
         protected internal System.Windows.Forms.TextBox passText;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem sinZationalMinecraftToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mCUpdateToolStripMenuItem;
     }
 }
 

@@ -27,8 +27,7 @@ namespace SinZational_Minecraft_Launcher {
         void launchMinecraft() {
             String[] binFiles = Directory.GetFiles(path, "*.jar");
             String message = String.Join(";", binFiles);
-            //String[] jarModFiles = Directory.GetFiles(Path.Combine(path, "jarmods" + Path.DirectorySeparatorChar)).Where(file => file.ToLower().EndsWith("jar") || file.ToLower().EndsWith("zip")).ToArray<String>();
-            //message += String.Join(";", jarModFiles);
+
             MessageBox.Show(message);
             ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c java -Djava.library.path=\"natives\" -cp "+message+" net.minecraft.client.Minecraft " + username + " " + sessionID);
             procStartInfo.WorkingDirectory = path;

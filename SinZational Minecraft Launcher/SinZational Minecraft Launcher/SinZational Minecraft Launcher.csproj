@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DownloadLWJGL.cs" />
     <Compile Include="LastLogin.cs" />
     <Compile Include="Launch.cs" />
     <Compile Include="Login.cs" />

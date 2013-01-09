@@ -26,7 +26,8 @@ namespace SinZational_Minecraft_Launcher {
         }
 
         private void loginButton_Click(object sender, EventArgs e) {
-            
+
+            SetTask("Logging in...");
             Login login = new Login(userText.Text, passText.Text);
             String username = login.username;
             String sessionID = login.sessionID;
@@ -35,7 +36,7 @@ namespace SinZational_Minecraft_Launcher {
                     lastLogin.SetLastLogin(userText.Text, passText.Text);
                 }
                 if (updateBox.Checked) {
-                    //TODO: Check modpack download server here
+                    //TODO: Contact webserver here
 
 
                     //TODO: Download stuff here
@@ -43,6 +44,7 @@ namespace SinZational_Minecraft_Launcher {
 
                     //TODO: Install stuff here
                 }
+                SetTask("Starting Minecraft!");
                 Environment.SetEnvironmentVariable("APPDATA", rootPath);
                 Launch launch = new Launch(path, username, sessionID, consoleBox.Checked);
             }

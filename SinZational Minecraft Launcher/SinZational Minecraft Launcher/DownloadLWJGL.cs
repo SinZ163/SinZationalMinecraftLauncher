@@ -19,12 +19,11 @@ namespace SinZational_Minecraft_Launcher {
 
         String path;
 
-        Boolean isDownloading = true;
-
         MainForm form;
         public DownloadLWJGL(MainForm form, String path) {
             this.form = form;
             this.path = path;
+
             native = new Uri(downloadLink + "windows_natives.jar");
             lwjgl = new Uri(downloadLink + "lwjgl.jar");
             jinput = new Uri(downloadLink + "jinput.jar");
@@ -32,6 +31,7 @@ namespace SinZational_Minecraft_Launcher {
 
             Thread thread = new Thread(new ThreadStart(Download));
             thread.Start();
+
             while (thread.IsAlive) {
                 Application.DoEvents();
             }

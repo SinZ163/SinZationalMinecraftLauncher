@@ -32,6 +32,8 @@
             this.consoleBox = new System.Windows.Forms.CheckBox();
             this.updateBox = new System.Windows.Forms.CheckBox();
             this.rememberBox = new System.Windows.Forms.CheckBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.progressLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // userText
@@ -81,18 +83,18 @@
             // 
             // webBrowser
             // 
-            this.webBrowser.Location = new System.Drawing.Point(12, 12);
+            this.webBrowser.Location = new System.Drawing.Point(12, 69);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.ScriptErrorsSuppressed = true;
-            this.webBrowser.Size = new System.Drawing.Size(760, 490);
+            this.webBrowser.Size = new System.Drawing.Size(760, 433);
             this.webBrowser.TabIndex = 5;
             this.webBrowser.Url = new System.Uri("http://sinzationalminecraft.mca.d3s.co", System.UriKind.Absolute);
             // 
             // consoleBox
             // 
             this.consoleBox.AutoSize = true;
-            this.consoleBox.Location = new System.Drawing.Point(12, 508);
+            this.consoleBox.Location = new System.Drawing.Point(651, 12);
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.Size = new System.Drawing.Size(70, 17);
             this.consoleBox.TabIndex = 6;
@@ -102,7 +104,7 @@
             // updateBox
             // 
             this.updateBox.AutoSize = true;
-            this.updateBox.Location = new System.Drawing.Point(12, 531);
+            this.updateBox.Location = new System.Drawing.Point(651, 35);
             this.updateBox.Name = "updateBox";
             this.updateBox.Size = new System.Drawing.Size(121, 17);
             this.updateBox.TabIndex = 7;
@@ -112,18 +114,36 @@
             // rememberBox
             // 
             this.rememberBox.AutoSize = true;
-            this.rememberBox.Location = new System.Drawing.Point(140, 531);
+            this.rememberBox.Location = new System.Drawing.Point(544, 12);
             this.rememberBox.Name = "rememberBox";
             this.rememberBox.Size = new System.Drawing.Size(101, 17);
             this.rememberBox.TabIndex = 8;
             this.rememberBox.Text = "Remember Me?";
             this.rememberBox.UseVisualStyleBackColor = true;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(12, 525);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(100, 13);
+            this.progressBar.TabIndex = 9;
+            // 
+            // progressLabel
+            // 
+            this.progressLabel.AutoSize = true;
+            this.progressLabel.Location = new System.Drawing.Point(118, 525);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(27, 13);
+            this.progressLabel.TabIndex = 10;
+            this.progressLabel.Text = "N/A";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 560);
+            this.Controls.Add(this.progressLabel);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.rememberBox);
             this.Controls.Add(this.updateBox);
             this.Controls.Add(this.consoleBox);
@@ -143,8 +163,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox userText;
-        private System.Windows.Forms.TextBox passText;
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Label passLabel;
@@ -152,6 +170,10 @@
         private System.Windows.Forms.CheckBox consoleBox;
         private System.Windows.Forms.CheckBox updateBox;
         private System.Windows.Forms.CheckBox rememberBox;
+        public System.Windows.Forms.ProgressBar progressBar;
+        public System.Windows.Forms.Label progressLabel;
+        protected internal System.Windows.Forms.TextBox userText;
+        protected internal System.Windows.Forms.TextBox passText;
     }
 }
 

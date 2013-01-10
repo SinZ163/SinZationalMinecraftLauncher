@@ -93,7 +93,7 @@
             this.webBrowser.ScriptErrorsSuppressed = true;
             this.webBrowser.Size = new System.Drawing.Size(760, 475);
             this.webBrowser.TabIndex = 5;
-            this.webBrowser.Url = new System.Uri("http://sinzationalminecraft.mca.d3s.co", System.UriKind.Absolute);
+            this.webBrowser.Url = new System.Uri("http://sinzationalminecraft.mca.d3s.co/launcher", System.UriKind.Absolute);
             // 
             // consoleBox
             // 

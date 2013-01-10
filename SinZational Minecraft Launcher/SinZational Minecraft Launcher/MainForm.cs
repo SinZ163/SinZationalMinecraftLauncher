@@ -37,17 +37,55 @@ namespace SinZational_Minecraft_Launcher {
                 }
                 if (updateBox.Checked) {
                     //TODO: Contact webserver here
+                    SetTask("Checking for Updates...");
+                    ServerQuery query = new ServerQuery();
+                    bool downloadModPack = false;
+                    bool downloadMC = false;
+                    if (File.Exists(Path.Combine(rootPath, "version"))) {
+                        //Ok, We have saved version before, we mean business
+                        using (StreamReader sr = File.OpenText(Path.Combine(rootPath, "rememberMe.txt"))) {
+                            String modpackVersion = sr.ReadLine();
+                            String version = sr.ReadLine();
+                            if (modpackVersion != query.modPackVersion) {
+                                downloadModPack = true;
+                                //Fuck, we have to download the modpack
+                            }
+                            if (version != query.version) {
+                                downloadMC = true;
+                                //Gotta download minecraft =S
+                            }
+                            sr.Close();
+                        }
+
+                    }
 
 
                     //TODO: Download stuff here
 
-                    //DownloadLWJGL lwjgl = new DownloadLWJGL(this, path);
-                    //DownloadMinecraft minecraft = new DownloadMinecraft(Path.Combine(path, "dl"+Path.DirectorySeperatorChar));
+                    if (downloadModPack) {
+                        DownloadMods modDownload = new DownloadMods();
+                    }
+
+                    if (downloadMC) {
+                        DownloadLWJGL lwjgl = new DownloadLWJGL(this, path);
+                        SetTask("Downloading Minecraft");
+                        DownloadMinecraft minecraft = new DownloadMinecraft(this, query.version, Path.Combine(path, "dl" + Path.DirectorySeparatorChar, "mc" + Path.DirectorySeparatorChar));
+                    }
 
                     //TODO: Install stuff here
-                    SetTask("Installing Modpack");
-                    InstallJar jar = new InstallJar(Path.Combine(path, "dl" + Path.DirectorySeparatorChar));
+                    if (downloadModPack || downloadMC) {
+                        SetTask("Installing Modpack");
+                        InstallJar jar = new InstallJar(Path.Combine(path, "dl" + Path.DirectorySeparatorChar));
+                    }
+
+                    //Save version file
+                    using (StreamWriter sw = File.CreateText(Path.Combine(rootPath, "version"))) {
+                        sw.WriteLine(query.modPackVersion);
+                        sw.WriteLine(query.version);
+                        sw.Close();
+                    }
                 }
+                Application.Exit();
                 SetTask("Starting Minecraft!");
                 Environment.SetEnvironmentVariable("APPDATA", rootPath);
                 Launch launch = new Launch(path, username, sessionID, consoleBox.Checked);
@@ -80,7 +118,7 @@ namespace SinZational_Minecraft_Launcher {
         }
 
         private void sinZationalMinecraftToolStripMenuItem_Click(object sender, EventArgs e) {
-            webBrowser.Url = new Uri("http://SinZationalMinecraft.mca.d3s.co");
+            webBrowser.Url = new Uri("http://SinZationalMinecraft.mca.d3s.co/launcher");
         }
 
         private void mCUpdateToolStripMenuItem_Click(object sender, EventArgs e) {

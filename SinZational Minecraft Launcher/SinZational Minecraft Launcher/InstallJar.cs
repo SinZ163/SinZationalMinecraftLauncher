@@ -26,15 +26,19 @@ namespace SinZational_Minecraft_Launcher {
         }
         public void ExtractMinecraft() {
             using (ZipArchive archive = ZipFile.OpenRead(Path.Combine(path, "mc"+Path.DirectorySeparatorChar, "minecraft.jar"))) {
-                
                 foreach (ZipArchiveEntry file in archive.Entries) {
                     String fullPath = Path.Combine(tmp, file.FullName);
                     String filePath = Path.GetDirectoryName(fullPath);
-                    Console.WriteLine(filePath);
-                    Console.WriteLine(fullPath);
+                    Console.WriteLine("Minecraft: "+filePath);
+                    Console.WriteLine("Minecraft: " + fullPath);
                     if (!Directory.Exists(filePath))
                         Directory.CreateDirectory(filePath);
-                    file.ExtractToFile(fullPath, true);
+                    try {
+                        file.ExtractToFile(fullPath, true);
+                    }
+                    catch (ArgumentException e) {
+                        Console.WriteLine(file.FullName+"| "+e.Message);
+                    }
                 }
             }
         }
@@ -43,7 +47,22 @@ namespace SinZational_Minecraft_Launcher {
             String[] jarModFiles = Directory.GetFiles(Path.Combine(path)).Where(file => file.ToLower().EndsWith("jar") || file.ToLower().EndsWith("zip")).ToArray<String>();
 
             foreach (String filename in jarModFiles) {
+                String jarMod = filename.Split(Path.DirectorySeparatorChar).Last();
                 using (ZipArchive archive = ZipFile.OpenRead(filename)) {
+                    foreach (ZipArchiveEntry file in archive.Entries) {
+                        String fullPath = Path.Combine(tmp, file.FullName);
+                        String filePath = Path.GetDirectoryName(fullPath);
+                        Console.WriteLine(jarMod + "| " + filePath);
+                        Console.WriteLine(jarMod + "| " + fullPath);
+                        if (!Directory.Exists(filePath))
+                            Directory.CreateDirectory(filePath);
+                        try {
+                            file.ExtractToFile(fullPath, true);
+                        }
+                        catch (Exception e) {
+                            Console.WriteLine(file.FullName + "| " + e.Message);
+                        }
+                    }
                 }
             }
         }
@@ -53,7 +72,9 @@ namespace SinZational_Minecraft_Launcher {
             using (ZipArchive modPack = ZipFile.Open(Path.Combine(path,".."+Path.DirectorySeparatorChar,"modpack.jar"), ZipArchiveMode.Create)) {
                 String[] fileList = Directory.GetFiles(tmp, "*", SearchOption.AllDirectories);
                 foreach (String file in fileList) {
-                    String fileName = file.Split(Path.DirectorySeparatorChar).Last();
+                    String fileName = file.Substring(tmp.Length);
+                    Console.WriteLine("ModPack: " + file);
+                    Console.WriteLine("ModPack: " + fileName);
                     modPack.CreateEntryFromFile(file, fileName);
                 }
             }

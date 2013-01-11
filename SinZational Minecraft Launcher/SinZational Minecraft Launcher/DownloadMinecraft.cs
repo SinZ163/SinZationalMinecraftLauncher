@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,23 +16,27 @@ namespace SinZational_Minecraft_Launcher {
         String path;
 
         MainForm form;
+        Boolean isDownloading = true;
 
         public DownloadMinecraft(MainForm form, String version, String path) {
             this.URL = String.Format("http://assets.minecraft.net/{0}/minecraft.jar", version);
             this.form = form;
             this.version = version;
             this.path = path;
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-            Thread thread = new Thread(new ThreadStart(Download));
-            thread.Start();
-            while (thread.IsAlive) {
+            WebClient client = new WebClient();
+            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(form.SetProgressBar);
+            client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded);
+            client.DownloadFileAsync(new Uri(URL), path + "minecraft.jar");
+            while (isDownloading) {
                 Application.DoEvents();
             }
         }
-        void Download() {
-            WebClient client = new WebClient();
-            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(form.SetProgressBar); //TODO: Don't use mainForm
-            client.DownloadFile(URL, path + "minecraft.jar");
+
+        public void Downloaded(object sender, AsyncCompletedEventArgs e) {
+            isDownloading = false;
         }
     }
 }

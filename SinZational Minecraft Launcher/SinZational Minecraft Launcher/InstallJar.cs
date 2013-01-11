@@ -30,13 +30,18 @@ namespace SinZational_Minecraft_Launcher {
             //Extract /mc/minecraft.jar to /tmp
 
             try {
-                String args = "/q /c 7z.exe x \"" + Path.Combine(path, "mc" + Path.DirectorySeparatorChar, "minecraft.jar") + "\" -o\"" + tmp+ "\" -y";
+                String args = "/q /c 7z.exe x \"" + Path.Combine(path, "mcdl" + Path.DirectorySeparatorChar, "minecraft.jar") + "\" -o\"" + tmp+ "\" -y";
                 Console.WriteLine(args);
 
                 ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", args);
                 procStartInfo.WorkingDirectory = @"C:\Program Files\7-Zip\";
                 Process proc = new System.Diagnostics.Process();
+#if DEBUG
+                procStartInfo.Arguments += " & pause";
+#endif
+#if RELEASE
                 procStartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+#endif
                 proc.StartInfo = procStartInfo;
                 proc.Start();
                 while (!proc.HasExited) {
@@ -51,9 +56,9 @@ namespace SinZational_Minecraft_Launcher {
         }
         public void ExtractJarMods() {
             //Get the filenames of every jar we want to merge
-            String[] jarModFiles = Directory.GetFiles(Path.Combine(path)).Where(file => file.ToLower().EndsWith("jar") || file.ToLower().EndsWith("zip")).ToArray<String>();
+            String[] jarModFiles = Directory.GetFiles(Path.Combine(path, "jarmods"+Path.DirectorySeparatorChar)).Where(file => file.ToLower().EndsWith("jar") || file.ToLower().EndsWith("zip")).ToArray<String>();
             foreach (String jarMod in jarModFiles) {
-                ZipFile zip = new ZipFile(Path.Combine(path, jarMod));
+                ZipFile zip = new ZipFile(Path.Combine(path, "jarmods" + Path.DirectorySeparatorChar, jarMod));
                 zip.ExtractAll(tmp, ExtractExistingFileAction.OverwriteSilently);
             }
         }
@@ -62,11 +67,11 @@ namespace SinZational_Minecraft_Launcher {
             Directory.Delete(Path.Combine(tmp, "META-INF"), true);
         }
         public void MakeModpack() {
-            if (File.Exists(Path.Combine(path, ".." + Path.DirectorySeparatorChar, "minecraft.jar")))
-                File.Delete(Path.Combine(path, ".." + Path.DirectorySeparatorChar, "minecraft.jar"));
+            if (File.Exists(Path.Combine(path, ".minecraft" + Path.DirectorySeparatorChar, "bin" + Path.DirectorySeparatorChar, "minecraft.jar")))
+                File.Delete(Path.Combine(path, ".minecraft" + Path.DirectorySeparatorChar, "bin" + Path.DirectorySeparatorChar, "minecraft.jar"));
             ZipFile zip = new ZipFile();
             zip.AddDirectory(tmp);
-            zip.Save(Path.Combine(path, ".."+Path.DirectorySeparatorChar, "minecraft.jar"));
+            zip.Save(Path.Combine(path, ".minecraft" + Path.DirectorySeparatorChar, "bin" + Path.DirectorySeparatorChar, "minecraft.jar"));
         }
     }
 }

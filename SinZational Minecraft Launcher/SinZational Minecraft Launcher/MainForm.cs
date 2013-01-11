@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,6 +23,16 @@ namespace SinZational_Minecraft_Launcher {
         public String sessionID;
 
         public MainForm() {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
+                string resourceName = new AssemblyName(args.Name).Name + ".dll";
+                string resource = Array.Find(this.GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource)) {
+                    Byte[] assemblyData = new Byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
             InitializeComponent();
         }
 
@@ -43,7 +54,7 @@ namespace SinZational_Minecraft_Launcher {
                     bool downloadMC = false;
                     if (File.Exists(Path.Combine(rootPath, "version"))) {
                         //Ok, We have saved version before, we mean business
-                        using (StreamReader sr = File.OpenText(Path.Combine(rootPath, "rememberMe.txt"))) {
+                        using (StreamReader sr = File.OpenText(Path.Combine(rootPath, "version"))) {
                             String modpackVersion = sr.ReadLine();
                             String version = sr.ReadLine();
                             if (modpackVersion != query.modPackVersion) {
@@ -58,24 +69,32 @@ namespace SinZational_Minecraft_Launcher {
                         }
 
                     }
+                    else {
+                        downloadModPack = true;
+                        downloadMC = true;
+                    }
 
 
                     //TODO: Download stuff here
 
                     if (downloadModPack) {
-                        DownloadMods modDownload = new DownloadMods();
+                        SetTask("Downloading Modpack...");
+                        DownloadMods modDownload = new DownloadMods(this, rootPath, query.downloadLink);
+
+                        SetTask("Installing Modpack...");
+                        InstallMods modInstall = new InstallMods(rootPath);
                     }
 
                     if (downloadMC) {
                         DownloadLWJGL lwjgl = new DownloadLWJGL(this, path);
                         SetTask("Downloading Minecraft");
-                        DownloadMinecraft minecraft = new DownloadMinecraft(this, query.version, Path.Combine(path, "dl" + Path.DirectorySeparatorChar, "mc" + Path.DirectorySeparatorChar));
+                        DownloadMinecraft minecraft = new DownloadMinecraft(this, query.version, Path.Combine(rootPath, "mcdl" + Path.DirectorySeparatorChar));
                     }
 
                     //TODO: Install stuff here
                     if (downloadModPack || downloadMC) {
-                        SetTask("Installing Modpack");
-                        InstallJar jar = new InstallJar(Path.Combine(path, "dl" + Path.DirectorySeparatorChar));
+                        SetTask("Making Minecraft.jar");
+                        InstallJar jar = new InstallJar(Path.Combine(rootPath));
                     }
 
                     //Save version file
@@ -98,27 +117,38 @@ namespace SinZational_Minecraft_Launcher {
                 Directory.CreateDirectory(rootPath);
             if (Directory.Exists(path))
                 Directory.CreateDirectory(path);
-
-            lastLogin = new LastLogin();
-            String[] loginInfo = lastLogin.GetLastLogin();
-            userText.Text = loginInfo[0];
-            passText.Text = loginInfo[1];
+            if (File.Exists(rootPath + "lastlogin")) {
+                lastLogin = new LastLogin();
+                String[] loginInfo = lastLogin.GetLastLogin();
+                userText.Text = loginInfo[0];
+                passText.Text = loginInfo[1];
+            }
         }
 
 
-        //TODO: Do somewhere else
+        private delegate void SetTask_(string text);
+        private delegate void SetProgress_(object sender, DownloadProgressChangedEventArgs e);
+ 
+        public void SetTask(string text) {
+            if (this.InvokeRequired) {
+                 this.Invoke(new SetTask_(SetTask), text);
+            }
+            else {
+                progressLabel.Text = text;
+            }
+        }
+
         public void SetProgressBar(object sender, DownloadProgressChangedEventArgs e) {
-            //TODO: Show progress bar, somehow
-            progressBar.Value = e.ProgressPercentage;
-
-        }
-        public void SetTask(String taskName) {
-            //TODO: Show progress task, somehow
-            progressLabel.Text = taskName;
+            if (this.InvokeRequired) {
+                this.Invoke(new SetProgress_(SetProgressBar), sender, e);
+            }
+            else {
+                progressBar.Value = e.ProgressPercentage;
+            }
         }
 
         private void sinZationalMinecraftToolStripMenuItem_Click(object sender, EventArgs e) {
-            webBrowser.Url = new Uri("http://SinZationalMinecraft.mca.d3s.co/launcher");
+            webBrowser.Url = new Uri("https://googledrive.com/host/0By-3RIh0CDzbS1U1cDFPeXlORzQ/");
         }
 
         private void mCUpdateToolStripMenuItem_Click(object sender, EventArgs e) {

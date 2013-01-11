@@ -13,9 +13,11 @@ namespace SinZational_Minecraft_Launcher {
         public String downloadLink;
         public ServerQuery() {
             WebClient client = new WebClient();
-            String rawOutput = client.DownloadString("http://sinzationalminecraft.mca.d3s.co/launcher/download.html");
+            String rawOutput = client.DownloadString("https://googledrive.com/host/0By-3RIh0CDzbS1U1cDFPeXlORzQ/download.html");
             String[] output = rawOutput.Split('|');
+#if DEBUG
             MessageBox.Show(String.Join(", ", output));
+#endif
 
             modPackVersion = output[0];
             version = output[1];

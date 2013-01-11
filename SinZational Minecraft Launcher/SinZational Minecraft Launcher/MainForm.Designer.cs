@@ -37,11 +37,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sinZationalMinecraftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mCUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ramMeter = new System.Windows.Forms.TrackBar();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ramMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // userText
             // 
+            this.userText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.userText.Location = new System.Drawing.Point(549, 508);
             this.userText.Name = "userText";
             this.userText.Size = new System.Drawing.Size(100, 20);
@@ -49,6 +52,7 @@
             // 
             // passText
             // 
+            this.passText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.passText.Location = new System.Drawing.Point(549, 534);
             this.passText.Name = "passText";
             this.passText.Size = new System.Drawing.Size(100, 20);
@@ -57,6 +61,7 @@
             // 
             // loginButton
             // 
+            this.loginButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.loginButton.Location = new System.Drawing.Point(666, 508);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(111, 46);
@@ -67,6 +72,7 @@
             // 
             // userLabel
             // 
+            this.userLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.userLabel.AutoSize = true;
             this.userLabel.Location = new System.Drawing.Point(485, 508);
             this.userLabel.Name = "userLabel";
@@ -77,6 +83,7 @@
             // 
             // passLabel
             // 
+            this.passLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.passLabel.AutoSize = true;
             this.passLabel.Location = new System.Drawing.Point(487, 538);
             this.passLabel.Name = "passLabel";
@@ -87,6 +94,9 @@
             // 
             // webBrowser
             // 
+            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowser.Location = new System.Drawing.Point(12, 27);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
@@ -97,8 +107,9 @@
             // 
             // consoleBox
             // 
+            this.consoleBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.consoleBox.AutoSize = true;
-            this.consoleBox.Location = new System.Drawing.Point(409, 507);
+            this.consoleBox.Location = new System.Drawing.Point(380, 507);
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.Size = new System.Drawing.Size(70, 17);
             this.consoleBox.TabIndex = 6;
@@ -107,8 +118,9 @@
             // 
             // updateBox
             // 
+            this.updateBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.updateBox.AutoSize = true;
-            this.updateBox.Location = new System.Drawing.Point(302, 531);
+            this.updateBox.Location = new System.Drawing.Point(12, 508);
             this.updateBox.Name = "updateBox";
             this.updateBox.Size = new System.Drawing.Size(121, 17);
             this.updateBox.TabIndex = 7;
@@ -117,8 +129,9 @@
             // 
             // rememberBox
             // 
+            this.rememberBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.rememberBox.AutoSize = true;
-            this.rememberBox.Location = new System.Drawing.Point(302, 508);
+            this.rememberBox.Location = new System.Drawing.Point(380, 533);
             this.rememberBox.Name = "rememberBox";
             this.rememberBox.Size = new System.Drawing.Size(101, 17);
             this.rememberBox.TabIndex = 8;
@@ -127,6 +140,7 @@
             // 
             // progressBar
             // 
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.progressBar.Location = new System.Drawing.Point(12, 525);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(100, 13);
@@ -134,6 +148,7 @@
             // 
             // progressLabel
             // 
+            this.progressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.progressLabel.AutoSize = true;
             this.progressLabel.Location = new System.Drawing.Point(118, 525);
             this.progressLabel.Name = "progressLabel";
@@ -166,11 +181,19 @@
             this.mCUpdateToolStripMenuItem.Text = "MCUpdate";
             this.mCUpdateToolStripMenuItem.Click += new System.EventHandler(this.mCUpdateToolStripMenuItem_Click);
             // 
+            // ramMeter
+            // 
+            this.ramMeter.Location = new System.Drawing.Point(242, 509);
+            this.ramMeter.Name = "ramMeter";
+            this.ramMeter.Size = new System.Drawing.Size(132, 45);
+            this.ramMeter.TabIndex = 12;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 560);
+            this.Controls.Add(this.ramMeter);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.rememberBox);
@@ -189,6 +212,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ramMeter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,6 +234,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem sinZationalMinecraftToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mCUpdateToolStripMenuItem;
+        private System.Windows.Forms.TrackBar ramMeter;
     }
 }
 

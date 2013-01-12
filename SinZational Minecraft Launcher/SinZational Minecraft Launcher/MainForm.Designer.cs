@@ -38,6 +38,8 @@
             this.sinZationalMinecraftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mCUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ramMeter = new System.Windows.Forms.TrackBar();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ramMeter)).BeginInit();
             this.SuspendLayout();
@@ -188,11 +190,30 @@
             this.ramMeter.Size = new System.Drawing.Size(132, 45);
             this.ramMeter.TabIndex = 12;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(549, 4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 13;
+            this.textBox1.Text = "-Xms2G -Xmx4G";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(459, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "JVM Arguments:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 560);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.ramMeter);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.progressBar);
@@ -235,6 +256,8 @@
         private System.Windows.Forms.ToolStripMenuItem sinZationalMinecraftToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mCUpdateToolStripMenuItem;
         private System.Windows.Forms.TrackBar ramMeter;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

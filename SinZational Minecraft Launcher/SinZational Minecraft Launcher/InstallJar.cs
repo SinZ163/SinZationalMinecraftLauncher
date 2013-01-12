@@ -65,6 +65,7 @@ namespace SinZational_Minecraft_Launcher {
 
         public void FixMetaInf() {
             Directory.Delete(Path.Combine(tmp, "META-INF"), true);
+            File.Move(Path.Combine(tmp, "_aux.class"), Path.Combine(tmp, "aux.class"));
         }
         public void MakeModpack() {
             if (File.Exists(Path.Combine(path, ".minecraft" + Path.DirectorySeparatorChar, "bin" + Path.DirectorySeparatorChar, "minecraft.jar")))

@@ -87,6 +87,7 @@ namespace SinZational_Minecraft_Launcher {
 
                     if (downloadMC) {
                         DownloadLWJGL lwjgl = new DownloadLWJGL(this, path);
+                        lwjgl.Install();
                         SetTask("Downloading Minecraft");
                         DownloadMinecraft minecraft = new DownloadMinecraft(this, query.version, Path.Combine(rootPath, "mcdl" + Path.DirectorySeparatorChar));
                     }
@@ -107,7 +108,7 @@ namespace SinZational_Minecraft_Launcher {
                 Application.Exit();
                 SetTask("Starting Minecraft!");
                 Environment.SetEnvironmentVariable("APPDATA", rootPath);
-                Launch launch = new Launch(path, username, sessionID, consoleBox.Checked);
+                Launch launch = new Launch(path, username, sessionID, consoleBox.Checked, textBox1.Text);
             }
         }
 

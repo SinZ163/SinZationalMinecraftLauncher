@@ -14,12 +14,14 @@ namespace SinZational_Minecraft_Launcher {
         String username;
         String sessionID;
         Boolean consoleEnabled;
+        String jvmArgs;
 
-        public Launch(String path, String username, String sessionID, Boolean consoleEnabled, Boolean demo = false) {
+        public Launch(String path, String username, String sessionID, Boolean consoleEnabled, String jvmArgs, Boolean demo = false) {
             this.path = path;
             this.username = username;
             this.sessionID = sessionID;
             this.consoleEnabled = consoleEnabled;
+            this.jvmArgs = jvmArgs;
 
             launchMinecraft();
         }
@@ -28,7 +30,7 @@ namespace SinZational_Minecraft_Launcher {
             String[] binFiles = Directory.GetFiles(path, "*.jar");
             String message = String.Join(";", binFiles);
 
-            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c java -Djava.library.path=\"natives\" -cp "+message+" net.minecraft.client.Minecraft " + username + " " + sessionID);
+            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c java -Xms2048M -Xmx4096M -Djava.library.path=\"natives\" -cp "+message+" net.minecraft.client.Minecraft " + username + " " + sessionID);
             procStartInfo.WorkingDirectory = path;
             Process proc = new System.Diagnostics.Process();
 

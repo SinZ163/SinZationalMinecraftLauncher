@@ -78,7 +78,7 @@ namespace SinZational_Minecraft_Launcher {
             isDownloading = false;
         }
 
-        private void Install() {
+        public void Install() {
 #if DEBUG
             MessageBox.Show("Natives time.");
 #endif

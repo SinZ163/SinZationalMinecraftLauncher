@@ -30,10 +30,14 @@ namespace SinZational_Minecraft_Launcher {
             this.form = form;
             this.path = path;
 
-            File.Delete(path + "natives.zip");
-            File.Delete(path + "lwjgl.jar");
-            File.Delete(path + "jinput.jar");
-            File.Delete(path + "lwjgl_util.jar");
+            if (File.Exists(path + "natives.zip"))
+                File.Delete(path + "natives.zip");
+            if (File.Exists(path + "lwjgl.jar"))
+                File.Delete(path + "lwjgl.jar");
+            if (File.Exists(path + "jinput.jar"))
+                File.Delete(path + "jinput.jar");
+            if (File.Exists(path + "lwjgl_util.jar"))
+                File.Delete(path + "lwjgl_util.jar");
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);

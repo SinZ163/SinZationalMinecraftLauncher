@@ -33,6 +33,7 @@ namespace SinZational_Minecraft_Launcher {
                     return Assembly.Load(assemblyData);
                 }
             };
+            lastLogin = new LastLogin();
             InitializeComponent();
         }
 
@@ -45,6 +46,12 @@ namespace SinZational_Minecraft_Launcher {
             if (sessionID != "-") { //TODO: offline-mode support
                 if (rememberBox.Checked) {
                     lastLogin.SetLastLogin(userText.Text, passText.Text);
+
+                    FileStream stream = new FileStream(rootPath + "settings", FileMode.OpenOrCreate);
+                    stream.WriteByte(rememberBox.Checked ? (byte) 1 : (byte) 0);
+                    stream.WriteByte(consoleBox.Checked ? (byte)1 : (byte)0);
+                    stream.WriteByte(updateBox.Checked ? (byte)1 : (byte)0);
+
                 }
                 if (updateBox.Checked) {
                     //TODO: Contact webserver here
@@ -105,10 +112,9 @@ namespace SinZational_Minecraft_Launcher {
                         sw.Close();
                     }
                 }
-                Application.Exit();
                 SetTask("Starting Minecraft!");
                 Environment.SetEnvironmentVariable("APPDATA", rootPath);
-                Launch launch = new Launch(path, username, sessionID, consoleBox.Checked, textBox1.Text);
+                Launch launch = new Launch(path, username, sessionID, consoleBox.Checked);
             }
         }
 
@@ -119,11 +125,17 @@ namespace SinZational_Minecraft_Launcher {
             if (Directory.Exists(path))
                 Directory.CreateDirectory(path);
             if (File.Exists(rootPath + "lastlogin")) {
-                lastLogin = new LastLogin();
                 String[] loginInfo = lastLogin.GetLastLogin();
                 userText.Text = loginInfo[0];
                 passText.Text = loginInfo[1];
             }
+            try {
+                FileStream stream = new FileStream(rootPath + "settings", FileMode.Open);
+                rememberBox.Checked = Convert.ToBoolean(stream.ReadByte());
+                consoleBox.Checked = Convert.ToBoolean(stream.ReadByte());
+                updateBox.Checked = Convert.ToBoolean(stream.ReadByte());
+            }
+            catch (Exception) { }
         }
 
 
@@ -149,7 +161,7 @@ namespace SinZational_Minecraft_Launcher {
         }
 
         private void sinZationalMinecraftToolStripMenuItem_Click(object sender, EventArgs e) {
-            webBrowser.Url = new Uri("https://googledrive.com/host/0By-3RIh0CDzbS1U1cDFPeXlORzQ/");
+            webBrowser.Url = new Uri("http://sinzmc.tumblr.com");
         }
 
         private void mCUpdateToolStripMenuItem_Click(object sender, EventArgs e) {

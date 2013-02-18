@@ -15,7 +15,7 @@ namespace SinZational_Minecraft_Launcher {
     public partial class MainForm : Form {
 
         private LastLogin lastLogin;
-
+        private Launch launch;
         public String rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".sinzationalminecraft" + Path.DirectorySeparatorChar);
         public String path;
 
@@ -59,7 +59,7 @@ namespace SinZational_Minecraft_Launcher {
                     ServerQuery query = new ServerQuery();
                     bool downloadModPack = false;
                     bool downloadMC = false;
-                    if (File.Exists(Path.Combine(rootPath, "version"))) {
+                    if (File.Exists(Path.Combine(rootPath, "version"))&& query.modPackVersion != "-1") {
                         //Ok, We have saved version before, we mean business
                         using (StreamReader sr = File.OpenText(Path.Combine(rootPath, "version"))) {
                             String modpackVersion = sr.ReadLine();
@@ -76,7 +76,9 @@ namespace SinZational_Minecraft_Launcher {
                         }
 
                     }
-                    else {
+                    else if (query.modPackVersion == "-1") {
+
+                    } else {
                         downloadModPack = true;
                         downloadMC = true;
                     }
@@ -114,7 +116,7 @@ namespace SinZational_Minecraft_Launcher {
                 }
                 SetTask("Starting Minecraft!");
                 Environment.SetEnvironmentVariable("APPDATA", rootPath);
-                Launch launch = new Launch(path, username, sessionID, consoleBox.Checked);
+                launch = new Launch(path, username, sessionID, consoleBox.Checked);
             }
         }
 
